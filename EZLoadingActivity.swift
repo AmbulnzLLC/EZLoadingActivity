@@ -8,32 +8,6 @@
 
 import UIKit
 
-// swift 3.x & 4.x compatability glue
-#if swift(>=4.2)
-let kCATransitionFade = CATransitionType.fade.rawValue
-#else
-extension RunLoop {
-    enum Mode {
-        static let common = RunLoopMode.commonModes
-    }
-}
-enum CATransitionType {
-    static let fade = kCATransitionFade
-}
-enum CAMediaTimingFunctionName {
-    static let easeInEaseOut = kCAMediaTimingFunctionEaseInEaseOut
-}
-extension UIInterfaceOrientation {
-    var isPortrait: Bool { return UIInterfaceOrientationIsPortrait(self) }
-}
-extension UIActivityIndicatorView {
-    typealias Style = UIActivityIndicatorViewStyle
-    convenience init(style: Style) { self.init(activityIndicatorStyle: style) }
-}
-#endif
-
-// MARK: -
-
 public struct EZLoadingActivity {
     
     //==========================================================================================================
@@ -314,7 +288,7 @@ private extension UIView {
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         animation.type = CATransitionType.fade
         animation.duration = duration
-        self.layer.add(animation, forKey: kCATransitionFade)
+        self.layer.add(animation, forKey: CATransitionType.fade.rawValue)
     }
 }
 
